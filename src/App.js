@@ -8,6 +8,8 @@ import { Users } from './components/Users';
 function App() {
     const [users, setUsers] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const [success, setSucces] = useState(false);
+    const [isInvated, setIsInvated] = useState([]);
     const [searchValue, setsearchValue] = useState('');
 
     useEffect(() => {
@@ -26,12 +28,27 @@ function App() {
 
     const changeSearchValueHandler = (e) => {
         setsearchValue(e.target.value);
+    };
+
+    const successHandler = () => {
+        setSucces(true);
     }
 
     return (
         <div className="App">
-            <Users items={users} isLoading={isLoading} changeSearchValue={changeSearchValueHandler} searchValue={searchValue} />
-            {/* <Success /> */}
+            {success ? (
+                <Success count={isInvated.length} />
+            ) : (
+                <Users
+                    items={users}
+                    isLoading={isLoading}
+                    changeSearchValue={changeSearchValueHandler}
+                    searchValue={searchValue}
+                    isInvated={isInvated}
+                    setIsInvated={setIsInvated}
+                    successHandler={successHandler}
+                />
+            )}
         </div>
     );
 }
