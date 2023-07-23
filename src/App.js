@@ -8,6 +8,7 @@ import { Users } from './components/Users';
 function App() {
     const [users, setUsers] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const [searchValue, setsearchValue] = useState('');
 
     useEffect(() => {
         const getUsers = async () => {
@@ -23,9 +24,13 @@ function App() {
         getUsers();
     }, []);
 
+    const changeSearchValueHandler = (e) => {
+        setsearchValue(e.target.value);
+    }
+
     return (
         <div className="App">
-            <Users items={users} isLoading={isLoading} />
+            <Users items={users} isLoading={isLoading} changeSearchValue={changeSearchValueHandler} searchValue={searchValue} />
             {/* <Success /> */}
         </div>
     );
